@@ -1,0 +1,9 @@
+{
+	"presets": [
+		"latest"
+	],
+	"plugins": [
+		"babel-cli",
+		"stage-2"
+	]
+}

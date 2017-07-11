@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ES6基本用法</title>
+</head>
+<body>
+	babel-cli>package.json>"devDependencies": {
+    "babel-helper-fixtures": "^6.22.0"}
+</body>
+<script>
+	/*{
+		var a = 1;
+		let b = 2;
+	}
+
+	console.log('a = '+a);
+	console.log('b = '+b);*/
+	//let声明的变量只在let所在的代码块有效。
+
+	var a = [];
+	for(var i = 0; i < 10 ; i++) {
+		a[i] = function () {
+			console.log(i);
+		};
+	}
+
+	a[6](); //10
+
+	var b = [];
+	for(let j = 0; j < 10 ; j++){
+		b[j] = function () {
+			console.log(j);
+		};
+	}
+	//在for循环中，每次循环都会重新声明一个变量j，并且javascript引擎会记录上一次申请j的值，在这个值得基础上进行计算。
+	b[6]();
+
+	console.log(d); //undefined
+	var d = 10;
+
+	// console.log(e); //ReferenceError
+	// let e = 10;
+
+		var c = 10;
+	{
+		// c = 11;
+		// console.log('innerC = '+c);
+		let c = 10;
+		//var 与 let 在相同作用域中申请相同变量时会var语句会报错；
+		//暂时性死区（tpz）
+	}
+
+	console.log('outterC = '+c);
+
+	let f = 12;
+	function f1 () {
+		console.log(f);
+	}
+	f1();
+
+	/*function bar(x = y, y = 2) {
+  		return [x, y];
+	}
+
+	bar(); //y is not defined*/
+	function bar(x = 2, y = x) {
+  		return [x, y];
+	}
+
+	console.log(bar());//[2,2]
+
+	var g = g;
+	console.log(g);//undefined
+
+	// let h = h; //h is not defined
+
+
+	// 不能在同一作用域内重复声明，在函数内部不能重新用let申明参数
+
+	/*function () {
+		var a = 0;
+		let a = 0;
+	}*/
+	//SyntaxError
+	/*function () {
+		let a = 10;
+		let a = 0;
+	}*/
+	//SyntaxError
+	/*function func(arg) {
+		let arg;
+		console.log(arg);
+	}*/
+
+	// func();
+
+	/*function func(arg) {
+		{
+			let arg = 10;
+		}
+	}*/
+	//不报错
+
+	let q = 10;
+
+	function ac(){
+		console.log(q);
+	}
+
+	ac();//10
+
+	function bf() {
+		let b = 10;
+		if (true) {
+			let b = 5;
+		}
+		console.log(b);
+	}
+	bf(); //10
+
+	/*function f1() { console.log('I am outside!'); }
+	
+	(function () {
+		if (false) {
+	// 重复声明一次函数f
+			function f1() { console.log('I am inside!'); }
+		}
+	
+		f1();
+	}());*/ //f1 is not a function
+
+	let m1 = 10;
+
+	function m () {
+		let m1=12;
+	}
+
+	console.log(m1)
+
+</script>
+</html>
