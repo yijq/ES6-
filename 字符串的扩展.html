@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+
+//字符的Unicode表示法
+	var a = "\u{86}";//等价于"\u0086";
+	console.log(a);
+	//javascript有六种表示方法
+	'\z' === 'z'  // true
+	'\172'   === 'z' // true
+	'\x7A'   === 'z' // true
+	'\u007A' === 'z' // true
+	'\u{7A}' === 'z' // true
+
+//codePointAt();
+	var b = "蛤h";
+	console.log(b.codePointAt(0));//34532
+	console.log(b.codePointAt(1));//104
+	console.log(b.codePointAt(2));//undefined
+
+	var b = "𠮷h";
+	console.log(b.codePointAt(0));//134071
+	console.log(b.codePointAt(1));//57271
+	console.log(b.codePointAt(2));//97
+	//codePointAt方法的参数，是字符在字符串中的位置（从0开始）。上面代码中，JavaScript将“𠮷a”视为三个字符，codePointAt方法在第一个字符上，正确地识别了“𠮷”，返回了它的十进制码点134071（即十六进制的20BB7）。在第二个字符（即“𠮷”的后两个字节）和第三个字符“a”上，codePointAt方法的结果与charCodeAt方法相同。
+
+//String.fromCodePoint();
+	
+	//ES6提供了String.fromCodePoint方法，可以识别大于0xFFFF的字符，弥补了String.fromCharCode方法的不足。在作用上，正好与codePointAt方法相反。
+
+//字符串的遍历接口
+	for (let codePoint of 'foo') {
+  		console.log(codePoint)
+	}
+	//遍历字符串，这个遍历器最大的优点是可以识别大于0xFFFF的码点，传统的for循环无法识别这样的码点。
+
+//at();
+	//目前，有一个提案，提出字符串实例的at方法，可以识别Unicode编号大于0xFFFF的字符，返回正确的字符。
+
+//normalize();
+//includes(),startWidth(),endWidth()
+//repeat();
+//padStart(),padEnd();
+//模板字符串(template string): 用(`...`)标识；
+	function authorize(user, action) {
+	  if (!user.hasPrivilege(action)) {
+	    throw new Error(
+	      // 传统写法为
+	      // 'User '
+	      // + user.name
+	      // + ' is not authorized to do '
+	      // + action
+	      // + '.'
+	      `User ${user.name} is not authorized to do ${action}.`);
+	  }
+	}
+
+// 标签模板
+//String.raw()
+//模板字符串的限制	
+
+</script>
+</html>
