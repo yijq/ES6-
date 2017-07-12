@@ -1,0 +1,32 @@
+{
+  "name": "babel_studynotes",
+  "version": "1.0.0",
+  "babel": {
+    "presets": [
+      "es2015"
+    ],
+    "plugins": []
+  },
+  "description": "babel的安装与使用",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yijq/ES6_study_notes.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yijq/ES6_study_notes/issues"
+  },
+  "homepage": "https://github.com/yijq/ES6_study_notes#readme",
+  "scripts": {
+    "build": "babel src -d lib"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.23.0"
+  }
+}
