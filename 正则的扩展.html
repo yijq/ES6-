@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>正则的扩展</title>
+</head>
+<body>
+</body>
+<script>
+//RegExp构造函数
+	//ES5中RegExp构造函数的参数与有两种情况
+	var pattern1 = new RegExp('^ad$',i);
+	var pattern2 = new RegExp(/^ad$/i);
+
+	//ES6中新增
+	var pattern3 = new RegExp(/^ad$/i,g);
+	//其中g会替换i
+
+//字符串的正则方法
+	//字符串对象共有4个方法可以使用正则表达式：match(),replace(),search和split().
+	//ES6中将这些方法在语言内部全部调用RegExp的实例方法，从而做到与正则相关的方法全部定义在RegExp对象上。
+
+    //String.prototype.match 调用 RegExp.prototype[Symbol.match]
+    //String.prototype.replace 调用 RegExp.prototype[Symbol.replace]
+    //String.prototype.search 调用 RegExp.prototype[Symbol.search]
+    //String.prototype.split 调用 RegExp.prototype[Symbol.split]
+
+//u修饰符
+	//含义为Unicode模式，用来正确处理大于\uFFFF的Unicode字符
+
+//y修饰符
+	//与g修饰符相似，都是进行全局匹配，不同之处在于，g修饰符只要确认剩余位置中有匹配即可，但y修饰符必须从剩余的第一个位置开始匹配，因此称为“粘连”(sticky)修饰符。
+
+//sticky属性
+	//用来确定是否设置了y修饰符
+	var pattern4 = /^ad$/y;
+	pattern4.sticky // true
+
+//flags属性
+	// ES5 的 source 属性
+	// 返回正则表达式的正文
+	/abc/ig.source
+	// "abc"
+
+	// ES6 的 flags 属性
+	// 返回正则表达式的修饰符
+	/abc/ig.flags
+	// 'gi'
+
+//s修饰符:dotAll模式
+	/foo.bar/s.test('foo\nbar') // true
+	//这被称为dotAll模式，即点（dot）代表一切字符。所以，正则表达式还引入了一个dotAll属性，返回一个布尔值，表示该正则表达式是否处在dotAll模式。
+
+//后行断言
+	/(?<=\$)\d+/.exec('Benjamin Franklin is on the $100 bill')  // ["100"]
+	/(?<!\$)\d+/.exec('it’s is worth about €90')                // ["90"]
+
+//Unicode属性类
+	//目前，有一个提案，引入了一种新的类的写法\p{...}和\P{...}，允许正则表达式匹配符合 Unicode 某种属性的所有字符。
+	const regexGreekSymbol = /\p{Script=Greek}/u;
+	regexGreekSymbol.test('π');
+
+//具名组匹配
+	//现在有一个“具名组匹配”（Named Capture Groups）的提案，允许为每一个组匹配指定一个名字，既便于阅读代码，又便于引用。
+	const RE_DATE = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/;
+
+	const matchObj = RE_DATE.exec('1999-12-31');
+	const year = matchObj.groups.year; // 1999
+	const month = matchObj.groups.month; // 12
+	const day = matchObj.groups.day; // 31
+
+	//解构赋值和替换
+	//有了具名组匹配以后，可以使用解构赋值直接从匹配结果上为变量赋值。
+
+	//引用
+	//如果要在正则表达式内部引用某个“具名组匹配”，可以使用\k<组名>的写法。
+
+</script>
+</html>
