@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>函数的扩展</title>
+</head>
+<body>
+	
+</body>
+<script>
+
+var x = 1;
+function foo(x, y = function() { x = 2; }) {
+   	x = 3;
+  	y();
+  	console.log(x);
+}
+foo()// 3
+console.log(foo.length);
+console.log(x) // 1
+
+function a1 (a) {
+	console.log(a);
+}
+a1();//undefined
+
+//函数参数的默认值
+	//基本用法  默认值为惰性求职
+	// function Point(x = 0, y = 0) {
+	//   this.x = x;
+	//   this.y = y;
+	// }
+
+	// var p = new Point();
+	// p // { x: 0, y: 0 }
+
+	//与解构赋值默认值结合使用
+
+	//默认参数的位置 具有默认值的参数应该放在末尾，称为尾参数。
+
+	//函数的length属性 具有默认值的参数会使函数的length属性失真，只读取具有默认值得参数之前的参数（不包括这个参数）的个数。
+
+	//作用域 一旦设置了参数的默认值，函数进行初始化声明时，参数就会形成一个单独的作用域（context），等初始化结束后，这个作用域就会消失。
+
+	//应用 可以利用参数默认值来指定某个参数不能省略，如果省略就抛出一个错误。
+
+	// function throwIfMissing() {
+	//   throw new Error('Missing parameter');
+	// }
+
+	// function foo(mustBeProvided = throwIfMissing()) {
+	//   return mustBeProvided;
+	// }
+
+	// foo()
+	// Error: Missing parameter
+
+//rest参数
+	//ES6 引入 rest 参数（形式为...变量名），用于获取函数的多余参数，这样就不需要使用arguments对象了。rest 参数搭配的变量是一个数组，该变量将多余的参数放入数组中。
+
+	// function add(...values) {
+	//   let sum = 0;
+
+	//   for (var val of values) {
+	//     sum += val;
+	//   }
+
+	//   return sum;
+	// }
+
+	// add(2, 5, 3) // 10
+
+//严格模式
+	//ES6中可以在函数内部规定使用严格模式，但在参数使用了默认值、解构赋值或扩展运算符时，函数内部就不能再规定严格模式了。
+
+//name属性
+	//函数的name属性，返回该函数的函数名。
+	//需要注意的是，ES6 对这个属性的行为做出了一些修改。如果将一个匿名函数赋值给一个变量，ES5 的name属性，会返回空字符串，而 ES6 的name属性会返回实际的函数名。
+	//如果将一个具名函数赋值给一个变量，则 ES5 和 ES6 的name属性都返回这个具名函数原本的名字。
+
+//箭头函数
+	var f = v => v;
+	//var f = function (v) {return v};
+
+	//没有参数或者有多个参数的时候，用括号表示参数
+	var f = () => 5;
+	//var f = function () {return 5;};
+	var f = (a,b) => a+b;
+	//var f = function (a,b){return a+b};
+
+	//箭头函数的代码块多于一条语句时，代码块用大括号括起来；
+
+	// （1）函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。
+	// （2）不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。
+	// （3）不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用 rest 参数代替。
+	// （4）不可以使用yield命令，因此箭头函数不能用作 Generator 函数。
+
+
+//绑定this
+	//箭头函数可以绑定this对象，大大减少了显式绑定this对象的写法（call、apply、bind）。但是，箭头函数并不适用于所有场合，所以ES7提出了“函数绑定”（function bind）运算符，用来取代call、apply、bind调用。虽然该语法还是ES7的一个提案，但是Babel转码器已经支持。
+
+	//函数绑定运算符是并排的两个冒号（::），双冒号左边是一个对象，右边是一个函数。该运算符会自动将左边的对象，作为上下文环境（即this对象），绑定到右边的函数上面。
+
+//尾调用
+	//尾调用（Tail Call）是函数式编程的一个重要概念，本身非常简单，一句话就能说清楚，就是指某个函数的最后一步是调用另一个函数。
+
+	//尾调用优化
+	//我们知道，函数调用会在内存形成一个“调用记录”，又称“调用帧”（call frame），保存调用位置和内部变量等信息。如果在函数A的内部调用函数B，那么在A的调用帧上方，还会形成一个B的调用帧。等到B运行结束，将结果返回到A，B的调用帧才会消失。如果函数B内部还调用函数C，那就还有一个C的调用帧，以此类推。所有的调用帧，就形成一个“调用栈”（call stack）。
+
+	//尾调用由于是函数的最后一步操作，所以不需要保留外层函数的调用帧，因为调用位置、内部变量等信息都不会再用到了，只要直接用内层函数的调用帧，取代外层函数的调用帧就可以了。
+
+//函数参数的尾逗号
+	//ES2017 允许函数的最后一个参数有尾逗号（trailing comma）。
+
+	//此前，函数定义和调用时，都不允许最后一个参数后面出现逗号。
+</script>
+</html>
